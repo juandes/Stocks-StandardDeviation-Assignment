@@ -1,4 +1,4 @@
-# A look at the adjusting closing of stocks from January 1, 2015 to September 28, 2015
+# A look at the adjusting closing price of stocks from January 1, 2015 to September 28, 2015
 
 ## Overview
 
