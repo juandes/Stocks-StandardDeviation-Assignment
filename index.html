@@ -58,7 +58,7 @@
 <h3>
 <a id="scraping-the-stocks-list" class="anchor" href="#scraping-the-stocks-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>Scraping the stocks list</h3>
 
-<p>The data was scraped from the Wikipedia page <a href="https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"><em>List of S&amp;P 500 companies</em></a>. If you see the page, it has a table with the 505 common stocks. R's rvest package works by specifying the css selector that matches the data we want. For this, I used the <a href="http://selectorgadget.com/">SelectorGadget</a> widget.</p>
+<p>The data was scraped from the Wikipedia page <a href="https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"><em>List of S&amp;P 500 companies</em></a>. If you see the page, it has a table with the 505 common stocks. R's rvest package works by specifying the css selector that matches the data we want. To find the css selector I wanted, I used the <a href="http://selectorgadget.com/">SelectorGadget</a> widget. If you use the gadget in the page I linked before, you will see that the selector tag that contains the stock code is <code>tr:nth-child(i) td:nth-child(1)</code>, where <code>i</code> is the position of the stock (starting from 2) in the table.</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/juandes">juandes</a></p>
