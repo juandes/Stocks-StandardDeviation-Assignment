@@ -39,6 +39,26 @@
 <p>The work presented in this report is a coding problem assignment that was giving to me during the hiring process for a data engineer position. Because the assignment was kind cool, I decided to make a report out of it.</p>
 
 <p>The task of this assignment was to find the S&amp;P stock with the highest adjusting close price standard deviation for the period January 1, 2015 until September 28, 2015.</p>
+
+<h3>
+<a id="tools-used" class="anchor" href="#tools-used" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tools used</h3>
+
+<ul>
+<li>Python and Pandas</li>
+<li>R and rvest for scraping the stocks list</li>
+</ul>
+
+<h2>
+<a id="the-solution" class="anchor" href="#the-solution" aria-hidden="true"><span class="octicon octicon-link"></span></a>The solution</h2>
+
+<hr>
+
+<p>As mentioned previously, the purpose of this assignment was to find the S&amp;P stock with the highest close price standard deviation during a given period of time. So, the first part of the problem is to find the stocks list, since it was not given and it is kind of silly to write them in the code (there a bit over 500 stocks). To do this, I used R's <a href="https://cran.r-project.org/web/packages/rvest/rvest.pdf">rvest</a> web scraping package.</p>
+
+<h3>
+<a id="scraping-the-stocks-list" class="anchor" href="#scraping-the-stocks-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>Scraping the stocks list</h3>
+
+<p>The data was scraped from the Wikipedia page <a href="https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"><em>List of S&amp;P 500 companies</em></a>. If you see the page, it has a table with the 505 common stocks. R's rvest package works by specifying the css selector that matches the data we want. For this, I used the <a href="http://selectorgadget.com/">SelectorGadget</a> widget.</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/juandes">juandes</a></p>
