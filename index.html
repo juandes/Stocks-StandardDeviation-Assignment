@@ -62,20 +62,18 @@
 
 <p>This is the R script for scraping the stocks.</p>
 
-<p>`r
-library(rvest)
-stocks &lt;- data.frame(stock = character(), stringsAsFactors = FALSE)
-stocks.site &lt;- read_html('<a href="https://en.wikipedia.org/wiki/List_of_S%26P_500_companies">https://en.wikipedia.org/wiki/List_of_S%26P_500_companies</a>')
-for (i in 2:506) {
-stock.symbol &lt;- stocks.site %&gt;% 
-                  html_node(paste0("tr:nth-child(", i, ") td:nth-child(1) .text")) %&gt;%
+<div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">rvest</span>)
+<span class="pl-smi">stocks</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">stock</span> <span class="pl-k">=</span> <span class="pl-k">character</span>(), <span class="pl-v">stringsAsFactors</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)
+<span class="pl-smi">stocks.site</span> <span class="pl-k">&lt;-</span> read_html(<span class="pl-s"><span class="pl-pds">'</span>https://en.wikipedia.org/wiki/List_of_S%26P_500_companies<span class="pl-pds">'</span></span>)
+<span class="pl-k">for</span> (<span class="pl-smi">i</span> <span class="pl-k">in</span> <span class="pl-c1">2</span><span class="pl-k">:</span><span class="pl-c1">506</span>) {
+<span class="pl-smi">stock.symbol</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">stocks.site</span> %<span class="pl-k">&gt;</span>% 
+                  html_node(paste0(<span class="pl-s"><span class="pl-pds">"</span>tr:nth-child(<span class="pl-pds">"</span></span>, <span class="pl-smi">i</span>, <span class="pl-s"><span class="pl-pds">"</span>) td:nth-child(1) .text<span class="pl-pds">"</span></span>)) %<span class="pl-k">&gt;</span>%
                   html_text()
-stocks[i - 1, 1] &lt;-stock.symbol
-}</p>
+<span class="pl-smi">stocks</span>[<span class="pl-smi">i</span> <span class="pl-k">-</span> <span class="pl-c1">1</span>, <span class="pl-c1">1</span>] <span class="pl-k">&lt;-</span><span class="pl-smi">stock.symbol</span>
+}
 
-<p>write.table(stocks, file = 'stocks_list.txt', col.names = FALSE, row.names = FALSE,
-            quote = FALSE)
-`</p>
+write.table(<span class="pl-smi">stocks</span>, <span class="pl-v">file</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>stocks_list.txt<span class="pl-pds">'</span></span>, <span class="pl-v">col.names</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">row.names</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>,
+            <span class="pl-v">quote</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/juandes">juandes</a></p>
