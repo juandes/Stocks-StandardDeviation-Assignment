@@ -128,6 +128,19 @@ current_highest_adjclose <span class="pl-k">=</span> {<span class="pl-s"><span c
             current_highest_adjclose[<span class="pl-s"><span class="pl-pds">'</span>stdev<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> current_standard_deviation
     <span class="pl-k">except</span>:
         <span class="pl-s"><span class="pl-pds">'</span>Something happened with <span class="pl-pds">'</span></span>, stock</pre></div>
+
+<p>Finally, the stock and its standard deviation are printed.</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">print</span> <span class="pl-s"><span class="pl-pds">'</span>Highest <span class="pl-cce">\'</span>Adj Close<span class="pl-cce">\'</span> is: <span class="pl-c1">%f</span> (<span class="pl-c1">%s</span>)<span class="pl-pds">'</span></span> <span class="pl-k">%</span> (
+    current_highest_adjclose[<span class="pl-s"><span class="pl-pds">'</span>stdev<span class="pl-pds">'</span></span>],
+    current_highest_adjclose[<span class="pl-s"><span class="pl-pds">'</span>stock<span class="pl-pds">'</span></span>])</pre></div>
+
+<h2>
+<a id="conclusion" class="anchor" href="#conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion</h2>
+
+<hr>
+
+<p>So there you have it! I thought this exercise was kind of cool, mostly because it is a bit different than your standard programming assignment. Even though this one is very simple, it capture the essence of a real and possible case you could encounter while working with data. At the moment of writing, I am thinking of adding new stuff to the script, such as visualizations or further univariate analysis using some of the standard deviations or the adjusted close price.</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/juandes">juandes</a></p>
