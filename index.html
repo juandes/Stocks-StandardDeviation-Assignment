@@ -74,6 +74,60 @@
 
 write.table(<span class="pl-smi">stocks</span>, <span class="pl-v">file</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>stocks_list.txt<span class="pl-pds">'</span></span>, <span class="pl-v">col.names</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">row.names</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>,
             <span class="pl-v">quote</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<p>Now that we have scraped the data, it's time for writing the solution.</p>
+
+<h3>
+<a id="finding-the-highest-adjusting-close-price-standard-deviation" class="anchor" href="#finding-the-highest-adjusting-close-price-standard-deviation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Finding the highest adjusting close price standard deviation</h3>
+
+<p>The first step is to load the required libraries. As I mentioned at the beginning, we'll be using the Pandas library.</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">import</span> datetime
+<span class="pl-k">import</span> pandas <span class="pl-k">as</span> pd
+<span class="pl-k">import</span> pandas.io.data</pre></div>
+
+<p>Read the data and create an empty list that will have the stocks.</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-c"># Load the stocks codes from an external file</span>
+stocks_file <span class="pl-k">=</span> <span class="pl-c1">open</span>(<span class="pl-s"><span class="pl-pds">'</span>stocks_list.txt<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>r<span class="pl-pds">'</span></span>)
+stocks_list <span class="pl-k">=</span> []</pre></div>
+
+<p>Specify the time period</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-c"># Note: the stock market is closed on New Year's Day</span>
+start_date <span class="pl-k">=</span> datetime.datetime(<span class="pl-c1">2015</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>)
+end_date <span class="pl-k">=</span> datetime.datetime(<span class="pl-c1">2015</span>, <span class="pl-c1">9</span>, <span class="pl-c1">28</span>)</pre></div>
+
+<p>To keep track of the largest standard deviation and its stock, I used a dictionary that will be updated each time the program finds a standard deviation greater than the current one.</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-c"># This dict has the current stock with the highest std</span>
+current_highest_adjclose <span class="pl-k">=</span> {<span class="pl-s"><span class="pl-pds">'</span>stock<span class="pl-pds">'</span></span>: <span class="pl-s"><span class="pl-pds">'</span>placeholder<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>stdev<span class="pl-pds">'</span></span>: <span class="pl-k">-</span><span class="pl-c1">1</span>}</pre></div>
+
+<p>Now that the structures have been created, it's time to add the stocks to <code>stocks_list</code>.</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-c"># Add the stocks to a new list while removing \n</span>
+<span class="pl-k">for</span> line <span class="pl-k">in</span> stocks_file:
+    stocks_list.append(line.strip(<span class="pl-s"><span class="pl-pds">'</span><span class="pl-cce">\n</span><span class="pl-pds">'</span></span>))</pre></div>
+
+<p>The next piece of code is the main part of the script. It is a loop that iterates through the stocks list and do the following:</p>
+
+<ul>
+<li>It looks for the stock <code>stock</code> using <code>pd.io.data.get_data_yahoo</code> ,which returns a dataframe. From said dataframe, we are interested in the 'Adj Close' column.</li>
+<li>Then it calculates the standard deviation of the column.</li>
+<li>It checks if the current standard deviation is greater than the one in the dictionary. If it is greater, it updates the value with the new standard deviation and it also updates the name of the stock. If the standard deviation is smaller, we continue.</li>
+</ul>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">for</span> stock <span class="pl-k">in</span> stocks_list:
+    <span class="pl-k">print</span> stock
+    <span class="pl-k">try</span>:
+        s <span class="pl-k">=</span> pd.io.data.get_data_yahoo(stock, <span class="pl-smi">start</span><span class="pl-k">=</span>start_date,
+                                      <span class="pl-smi">end</span><span class="pl-k">=</span>end_date)[<span class="pl-s"><span class="pl-pds">'</span>Adj Close<span class="pl-pds">'</span></span>]
+        current_standard_deviation <span class="pl-k">=</span> s.std()
+        <span class="pl-k">if</span> current_standard_deviation <span class="pl-k">&gt;</span> current_highest_adjclose[<span class="pl-s"><span class="pl-pds">'</span>stdev<span class="pl-pds">'</span></span>]:
+            current_highest_adjclose[<span class="pl-s"><span class="pl-pds">'</span>stock<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> stock
+            current_highest_adjclose[<span class="pl-s"><span class="pl-pds">'</span>stdev<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> current_standard_deviation
+    <span class="pl-k">except</span>:
+        <span class="pl-s"><span class="pl-pds">'</span>Something happened with <span class="pl-pds">'</span></span>, stock</pre></div>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/juandes">juandes</a></p>
