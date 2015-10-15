@@ -24,4 +24,4 @@ Besides the readme, this repo has 3 files.
 
 ## Report
 
-The complete report is found at [A look at the adjusting closing price of stocks from January 1, 2015 to September 28, 2015](http://juandes.github.io/Stocks-StandardDeviation-Assignment/).
+The complete report is found at: [A look at the adjusting closing price of stocks from January 1, 2015 to September 28, 2015](http://juandes.github.io/Stocks-StandardDeviation-Assignment/).
