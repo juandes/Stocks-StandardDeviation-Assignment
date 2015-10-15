@@ -58,7 +58,24 @@
 <h3>
 <a id="scraping-the-stocks-list" class="anchor" href="#scraping-the-stocks-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>Scraping the stocks list</h3>
 
-<p>The data was scraped from the Wikipedia page <a href="https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"><em>List of S&amp;P 500 companies</em></a>. If you see the page, it has a table with the 505 common stocks. R's rvest package works by specifying the css selector that matches the data we want. To find the css selector I wanted, I used the <a href="http://selectorgadget.com/">SelectorGadget</a> widget. If you use the gadget in the page I linked before, you will see that the selector tag that contains the stock code is <code>tr:nth-child(i) td:nth-child(1)</code>, where <code>i</code> is the position of the stock (starting from 2) in the table.</p>
+<p>The data was scraped from the Wikipedia page <a href="https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"><em>List of S&amp;P 500 companies</em></a>. If you see the page, it has a table with the 505 common stocks. R's rvest package works by specifying the css selector that matches the data we want. To find the css selector I wanted, I used the <a href="http://selectorgadget.com/">SelectorGadget</a> widget. If you use the gadget in the page I linked before, you will see that the selector tag containing the stock code is <code>tr:nth-child(i) td:nth-child(1)</code>, where <code>i</code> is the position of the stock (starting from 2) in the table.</p>
+
+<p>This is the R script for scraping the stocks.</p>
+
+<p>`r
+library(rvest)
+stocks &lt;- data.frame(stock = character(), stringsAsFactors = FALSE)
+stocks.site &lt;- read_html('<a href="https://en.wikipedia.org/wiki/List_of_S%26P_500_companies">https://en.wikipedia.org/wiki/List_of_S%26P_500_companies</a>')
+for (i in 2:506) {
+stock.symbol &lt;- stocks.site %&gt;% 
+                  html_node(paste0("tr:nth-child(", i, ") td:nth-child(1) .text")) %&gt;%
+                  html_text()
+stocks[i - 1, 1] &lt;-stock.symbol
+}</p>
+
+<p>write.table(stocks, file = 'stocks_list.txt', col.names = FALSE, row.names = FALSE,
+            quote = FALSE)
+`</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/juandes">juandes</a></p>
